@@ -9,7 +9,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 const Dashboard = () => {
   return (
     <Box display="flex" style={{ backgroundColor: '#121212', minHeight: '100vh' }}>
-
       {/* Main Content */}
       <Box flex={1} p={3}>
         {/* Top bar with date and notification */}
