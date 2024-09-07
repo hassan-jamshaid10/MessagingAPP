@@ -1,81 +1,70 @@
 import React from 'react';
 import { Box, Typography, List, ListItem, ListItemIcon, ListItemText, Avatar } from '@mui/material';
+import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
-import ChatIcon from '@mui/icons-material/Chat'; // Icon for "Chats"
-import GroupIcon from '@mui/icons-material/Group'; // Icon for "Groups"
-import CallIcon from '@mui/icons-material/Call'; // New icon for "Call"
-import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar'; // Icon for "Contacts"
+import ChatIcon from '@mui/icons-material/Chat';
+import GroupIcon from '@mui/icons-material/Group';
+import CallIcon from '@mui/icons-material/Call';
+import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-const Sidebar = () => {
+const Sidebar = ({ name, email }) => {
   return (
-    <Box display="flex" style={{ backgroundColor: '#121212', minHeight: '100vh' }}>
-      {/* Sidebar */}
-      <Box
-        sx={{
-          width: '250px',
-          backgroundColor: '#1E1E1E',
-          color: 'white',
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <Box p={2}>
-          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Sitemark-web</Typography>
-        </Box>
+    <Box display="flex" flexDirection="column" sx={{ backgroundColor: '#1E1E1E', height: '100vh', color: 'white' }}>
+      <Box p={2}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Messaging App</Typography>
+      </Box>
 
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <HomeIcon sx={{ color: 'white' }} />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ChatIcon sx={{ color: 'white' }} /> {/* Updated icon for "Chats" */}
-            </ListItemIcon>
-            <ListItemText primary="Chats" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <GroupIcon sx={{ color: 'white' }} /> {/* Updated icon for "Groups" */}
-            </ListItemIcon>
-            <ListItemText primary="Groups" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <CallIcon sx={{ color: 'white' }} /> {/* New icon for "Call" */}
-            </ListItemIcon>
-            <ListItemText primary="Call" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <PermContactCalendarIcon sx={{ color: 'white' }} /> {/* Icon for "Contacts" */}
-            </ListItemIcon>
-            <ListItemText primary="Contacts" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <SettingsIcon sx={{ color: 'white' }} />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItem>
-        </List>
+      <List>
+        <ListItem button component={Link} to="/">
+          <ListItemIcon>
+            <HomeIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem button component={Link} to="/chats">
+          <ListItemIcon>
+            <ChatIcon sx={{ color: 'white' }} /> 
+          </ListItemIcon>
+          <ListItemText primary="Chats" />
+        </ListItem>
+        <ListItem button component={Link} to="/groups">
+          <ListItemIcon>
+            <GroupIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Groups" />
+        </ListItem>
+        <ListItem button component={Link} to="/call">
+          <ListItemIcon>
+            <CallIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Call" />
+        </ListItem>
+        <ListItem button component={Link} to="/contacts">
+          <ListItemIcon>
+            <PermContactCalendarIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Contacts" />
+        </ListItem>
+        <ListItem button component={Link} to="/settings">
+          <ListItemIcon>
+            <SettingsIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+        </ListItem>
+      </List>
 
-        <Box mt="auto" p={2}>
-          <Box display="flex" alignItems="center">
-            <Avatar alt="Riley Carter" src="https://via.placeholder.com/150" />
-            <Box ml={2}>
-              <Typography variant="subtitle1">Riley Carter</Typography>
-              <Typography variant="caption">riley@email.com</Typography>
-            </Box>
+      <Box mt="auto" p={2}>
+        <Box display="flex" alignItems="center">
+          <Avatar alt={name} src="https://via.placeholder.com/150" />
+          <Box ml={2}>
+            <Typography variant="subtitle1">{name}</Typography>
+            <Typography variant="caption">{email}</Typography>
           </Box>
         </Box>
       </Box>
     </Box>
   );
-}
+};
 
 export default Sidebar;
