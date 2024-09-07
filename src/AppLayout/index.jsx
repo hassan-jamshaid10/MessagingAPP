@@ -1,24 +1,30 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
+import Sidebar from '../Components/SideBar'; // Adjust path if necessary
 import { Box } from '@mui/material';
-import Sidebar from '../Components/SideBar/index';
 
 const AppLayout = ({ children }) => {
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
+
   return (
     <Box display="flex" sx={{ minHeight: '100vh', overflow: 'hidden' }}>
-      <Box
-        component="nav"
-        sx={{
-          width: { sm: '250px' },
-          flexShrink: 0,
-          backgroundColor: '#1E1E1E',
-          color: 'white',
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh', // Ensures the sidebar takes the full height
-        }}
-      >
-        <Sidebar name="Hassan" email="hassan@email.com" />
-      </Box>
+      {!isLoginPage && (
+        <Box
+          component="nav"
+          sx={{
+            width: { sm: '250px' },
+            flexShrink: 0,
+            backgroundColor: '#1E1E1E',
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100vh', // Ensures the sidebar takes the full height
+          }}
+        >
+          <Sidebar name="Hassan" email="hassan@email.com" />
+        </Box>
+      )}
       
       <Box
         component="main"

@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppLayout from './AppLayout/index';
-import Home from './Components/HomePage';
+import Home from './Components/HomePage/index';
+import LoginPage from './Components/LoginPage/index';
 // Import other pages or components here if needed
 // import Chats from './Components/Chats';
 // import Groups from './Components/Groups';
@@ -14,6 +15,7 @@ const App = () => {
     <Router>
       <AppLayout>
         <Routes>
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<Home />} />
           {/* Uncomment and add the routes as needed */}
           {/* <Route path="/chats" element={<Chats />} />
