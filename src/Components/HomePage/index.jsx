@@ -1,54 +1,16 @@
 import React from 'react';
 import { Box, Grid, Paper, Typography, Button, IconButton } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
+import DashboardHeader from '../DashHeader';
+import OverviewSection from '../SearchBar';
+import OnlineFriends from '../OnlineFriends';
 const Home = () => {
   return (
     <Box >
-      {/* Top bar with date and notification */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-        <Typography variant="h6" color="#071952">Dashboard</Typography> {/* Dark Blue for the title */}
-        <Box display="flex" alignItems="center">
-          <Button variant="contained" sx={{ backgroundColor: '#37B7C3', color: '#071952', mr: 2 }}>
-            Apr 17, 2023
-          </Button>
-          <IconButton aria-label="notifications">
-            <NotificationsIcon sx={{ color: '#071952' }} /> {/* Dark Blue for the icon */}
-          </IconButton>
-        </Box>
-      </Box>
-
-      {/* Overview Section */}
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}>
-          <Paper sx={{ padding: 3, backgroundColor: '#F3F9F9', color: '#071952' }}>
-            <Typography variant="h5">14k</Typography>
-            <Typography variant="subtitle1" color="green">+25%</Typography>
-            <Typography variant="body2">Users (Last 30 days)</Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Paper sx={{ padding: 3, backgroundColor: '#F3F9F9', color: '#071952' }}>
-            <Typography variant="h5">325</Typography>
-            <Typography variant="subtitle1" color="red">-25%</Typography>
-            <Typography variant="body2">Conversions (Last 30 days)</Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Paper sx={{ padding: 3, backgroundColor: '#F3F9F9', color: '#071952' }}>
-            <Typography variant="h5">200k</Typography>
-            <Typography variant="subtitle1" color="green">+5%</Typography>
-            <Typography variant="body2">Event Count (Last 30 days)</Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Paper sx={{ padding: 3, backgroundColor: '#37B7C3' }}>
-            <Button variant="contained" sx={{ backgroundColor: '#071952', color: '#EBF4F6' }} fullWidth>
-              Get Insights
-            </Button>
-          </Paper>
-        </Grid>
-      </Grid>
+     <DashboardHeader/>
+<OverviewSection/>
+<OnlineFriends/>
+    
 
       {/* Session Graph Section */}
       <Box mt={4}>
