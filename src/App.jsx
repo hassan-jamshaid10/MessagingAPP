@@ -1,23 +1,28 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Sidebar from './Components/SideBar/index';
+import AppLayout from './AppLayout/index';
 import Home from './Components/HomePage';
+// Import other pages or components here if needed
+// import Chats from './Components/Chats';
+// import Groups from './Components/Groups';
+// import Call from './Components/Call';
+// import Contacts from './Components/Contacts';
+// import Settings from './Components/Settings';
 
 const App = () => {
   return (
-   // <Home/>
     <Router>
-     
-        <main style={{ flexGrow: 1, padding: '20px' }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            {/* <Route path="/chats" element={<Chats />} />
-            <Route path="/groups" element={<Groups />} />
-            <Route path="/call" element={<Call />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/settings" element={<Settings />} /> */}
-          </Routes>
-        </main>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* Uncomment and add the routes as needed */}
+          {/* <Route path="/chats" element={<Chats />} />
+          <Route path="/groups" element={<Groups />} />
+          <Route path="/call" element={<Call />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/settings" element={<Settings />} /> */}
+        </Routes>
+      </AppLayout>
     </Router>
   );
 };

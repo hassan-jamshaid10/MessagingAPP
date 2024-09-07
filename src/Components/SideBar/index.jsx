@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, List, ListItem, ListItemIcon, ListItemText, Avatar } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link for routing
 import HomeIcon from '@mui/icons-material/Home';
 import ChatIcon from '@mui/icons-material/Chat';
 import GroupIcon from '@mui/icons-material/Group';
@@ -10,7 +10,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 const Sidebar = ({ name, email }) => {
   return (
-    <Box display="flex" flexDirection="column" sx={{ backgroundColor: '#1E1E1E', height: '100vh', color: 'white' }}>
+    <Box display="flex" flexDirection="column" sx={{ height: '100%' }}>
       <Box p={2}>
         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Messaging App</Typography>
       </Box>
@@ -30,19 +30,19 @@ const Sidebar = ({ name, email }) => {
         </ListItem>
         <ListItem button component={Link} to="/groups">
           <ListItemIcon>
-            <GroupIcon sx={{ color: 'white' }} />
+            <GroupIcon sx={{ color: 'white' }} /> 
           </ListItemIcon>
           <ListItemText primary="Groups" />
         </ListItem>
         <ListItem button component={Link} to="/call">
           <ListItemIcon>
-            <CallIcon sx={{ color: 'white' }} />
+            <CallIcon sx={{ color: 'white' }} /> 
           </ListItemIcon>
           <ListItemText primary="Call" />
         </ListItem>
         <ListItem button component={Link} to="/contacts">
           <ListItemIcon>
-            <PermContactCalendarIcon sx={{ color: 'white' }} />
+            <PermContactCalendarIcon sx={{ color: 'white' }} /> 
           </ListItemIcon>
           <ListItemText primary="Contacts" />
         </ListItem>
@@ -54,7 +54,7 @@ const Sidebar = ({ name, email }) => {
         </ListItem>
       </List>
 
-      <Box mt="auto" p={2}>
+      <Box sx={{ mt: 'auto', p: 2 }}>
         <Box display="flex" alignItems="center">
           <Avatar alt={name} src="https://via.placeholder.com/150" />
           <Box ml={2}>
