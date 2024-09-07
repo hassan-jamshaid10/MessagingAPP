@@ -1,0 +1,22 @@
+{
+"courses" : [
+    {
+        "id": 1,
+        "name": "React",
+        "price": 100,
+        "duration": "2 months"
+    },
+    {
+        "id": 2,
+        "name": "Angular",
+        "price": 200,
+        "duration": "3 months"
+    },
+    {
+        "id": 3,
+        "name": "Vue",
+        "price": 300,
+        "duration": "4 months"
+    }
+]
+}
