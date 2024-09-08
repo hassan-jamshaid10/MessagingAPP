@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { Box, Typography, IconButton, Popover } from '@mui/material';
+import { Box, Typography, IconButton, Popover, MenuItem } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'; // Import logout icon
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../Features/AuthSlice'; // Import your logout action
 
-const DashboardHeader = ({ userName }) => {
+const DashboardHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
+  const userName = useSelector((state) => state.auth.user?.name || 'Guest'); // Fetch userName from Redux state
 
   const handleNotificationClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -11,6 +16,10 @@ const DashboardHeader = ({ userName }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch the logout action
   };
 
   const open = Boolean(anchorEl);
@@ -24,15 +33,15 @@ const DashboardHeader = ({ userName }) => {
 
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-      <Typography variant="h6" color="#071952">
-        Welcome, {userName="Hassan"}
-      </Typography> {/* Dark Blue for the welcome message */}
+      <Typography variant="h6" color="#2E073F">
+        Welcome, {userName}
+      </Typography>
       <Box display="flex" alignItems="center">
-        <Typography variant="button" sx={{ mr: 2, color: '#071952' }}>
+        <Typography variant="button" sx={{ mr: 2, color: '#2E073F' }}>
           {getCurrentDate()}
         </Typography>
         <IconButton aria-label="notifications" onClick={handleNotificationClick}>
-          <NotificationsIcon sx={{ color: '#071952' }} /> {/* Dark Blue for the icon */}
+          <NotificationsIcon sx={{ color: '#2E073F' }} />
         </IconButton>
         <Popover
           id={id}
@@ -58,6 +67,13 @@ const DashboardHeader = ({ userName }) => {
         >
           <Typography variant="body2">You have new notifications!</Typography>
         </Popover>
+        <IconButton
+          aria-label="logout"
+          onClick={handleLogout}
+          sx={{ ml: 2, color: '#2E073F' }}
+        >
+          <ExitToAppIcon />
+        </IconButton>
       </Box>
     </Box>
   );

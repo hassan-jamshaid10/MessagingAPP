@@ -20,10 +20,17 @@ const Sidebar = ({ name, email }) => {
       sx={{
         height: '100%',
         width: expanded ? '250px' : '70px',
-        transition: 'width 0.3s',
-        backgroundColor: '#071952',
-        color: '#EBF4F6',
+        transition: 'width 0.3s, box-shadow 0.3s',
+        backgroundColor: '#2E073F', // Dark purple shade
+        color: '#EBD3F8', // Light purple for text
         overflow: 'hidden',
+        boxShadow: expanded
+          ? '0 4px 20px rgba(0, 0, 0, 0.6), 0 0 20px #AD49E1' // Glowing shadow when expanded
+          : '0 4px 10px rgba(0, 0, 0, 0.3)', // Subtle shadow when collapsed
+        // Added glow effect when expanded
+        '&:hover': {
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6), 0 0 20px #AD49E1',
+        },
       }}
     >
       <Box p={2} display="flex" alignItems="center">
@@ -37,12 +44,12 @@ const Sidebar = ({ name, email }) => {
         >
           {expanded ? (
             <Typography variant="h6" sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center' }}>
-            🐱
-              <a href="#" style={{ marginLeft: '16px', textDecoration: 'none', color: '#EBF4F6' }}>MESSAGING APP</a>
+              🐱
+              <a href="#" style={{ marginLeft: '16px', textDecoration: 'none', color: '#EBD3F8' }}>MESSAGING APP</a>
             </Typography>
           ) : (
             <Typography variant="h6" sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>
-              🐱
+            🐱
             </Typography>
           )}
         </Box>
@@ -51,39 +58,39 @@ const Sidebar = ({ name, email }) => {
       <List>
         <ListItem button component={Link} to="/" sx={{ padding: '8px 16px' }}>
           <ListItemIcon>
-            <HomeIcon sx={{ color: '#EBF4F6' }} />
+            <HomeIcon sx={{ color: '#EBD3F8' }} />
           </ListItemIcon>
-          {expanded && <ListItemText primary="Home" sx={{ color: '#EBF4F6' }} />}
+          {expanded && <ListItemText primary="Home" sx={{ color: '#EBD3F8' }} />}
         </ListItem>
         <ListItem button component={Link} to="/chats" sx={{ padding: '8px 16px' }}>
           <ListItemIcon>
-            <ChatIcon sx={{ color: '#EBF4F6' }} />
+            <ChatIcon sx={{ color: '#EBD3F8' }} />
           </ListItemIcon>
-          {expanded && <ListItemText primary="Chats" sx={{ color: '#EBF4F6' }} />}
+          {expanded && <ListItemText primary="Chats" sx={{ color: '#EBD3F8' }} />}
         </ListItem>
         <ListItem button component={Link} to="/groups" sx={{ padding: '8px 16px' }}>
           <ListItemIcon>
-            <GroupIcon sx={{ color: '#EBF4F6' }} />
+            <GroupIcon sx={{ color: '#EBD3F8' }} />
           </ListItemIcon>
-          {expanded && <ListItemText primary="Groups" sx={{ color: '#EBF4F6' }} />}
+          {expanded && <ListItemText primary="Groups" sx={{ color: '#EBD3F8' }} />}
         </ListItem>
         <ListItem button component={Link} to="/call" sx={{ padding: '8px 16px' }}>
           <ListItemIcon>
-            <CallIcon sx={{ color: '#EBF4F6' }} />
+            <CallIcon sx={{ color: '#EBD3F8' }} />
           </ListItemIcon>
-          {expanded && <ListItemText primary="Call" sx={{ color: '#EBF4F6' }} />}
+          {expanded && <ListItemText primary="Call" sx={{ color: '#EBD3F8' }} />}
         </ListItem>
         <ListItem button component={Link} to="/contacts" sx={{ padding: '8px 16px' }}>
           <ListItemIcon>
-            <PermContactCalendarIcon sx={{ color: '#EBF4F6' }} />
+            <PermContactCalendarIcon sx={{ color: '#EBD3F8' }} />
           </ListItemIcon>
-          {expanded && <ListItemText primary="Contacts" sx={{ color: '#EBF4F6' }} />}
+          {expanded && <ListItemText primary="Contacts" sx={{ color: '#EBD3F8' }} />}
         </ListItem>
         <ListItem button component={Link} to="/settings" sx={{ padding: '8px 16px' }}>
           <ListItemIcon>
-            <SettingsIcon sx={{ color: '#EBF4F6' }} />
+            <SettingsIcon sx={{ color: '#EBD3F8' }} />
           </ListItemIcon>
-          {expanded && <ListItemText primary="Settings" sx={{ color: '#EBF4F6' }} />}
+          {expanded && <ListItemText primary="Settings" sx={{ color: '#EBD3F8' }} />}
         </ListItem>
       </List>
 
@@ -102,8 +109,8 @@ const Sidebar = ({ name, email }) => {
           />
           {expanded && (
             <Box>
-              <Typography variant="subtitle1" color="#EBF4F6">{name}</Typography>
-              <Typography variant="caption" color="#EBF4F6">{email}</Typography>
+              <Typography variant="subtitle1" color="#EBD3F8">{name}</Typography>
+              <Typography variant="caption" color="#EBD3F8">{email}</Typography>
             </Box>
           )}
         </Box>

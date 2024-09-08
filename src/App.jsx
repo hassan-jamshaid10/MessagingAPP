@@ -1,22 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import AppLayout from './AppLayout/index';
+import AppLayout from './Layouts/AppLayout/index';
 import Home from './Components/HomePage';
 import LoginPage from './Components/LoginPage';
+import SignUpPage from './Components/SignUpPage/index'
 import Chats from './Components/ChatPage/index';
 import Contacts from './Components/ContactsPage/index';
 
+// ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
+// App component
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route
           path="/"
           element={
@@ -47,6 +51,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<Navigate to="/" />} /> {/* Redirect unknown routes */}
       </Routes>
     </Router>
   );

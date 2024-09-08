@@ -27,6 +27,12 @@
       "email": "abx@gmail.com",
       "password": "1",
       "isAuthenticated": true
+    },
+    {
+      "id": "60a0",
+      "name": "Hassan Jamshaid",
+      "email": "hjamshaid81@gmail.com",
+      "password": "Hassan12"
     }
   ],
   "contacts": [
