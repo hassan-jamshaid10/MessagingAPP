@@ -8,7 +8,7 @@ import LoginPage from './Components/LoginPage';
 import Chats from './Components/ChatPage/index';
 // import Groups from './Components/Groups';
 // import Call from './Components/Call';
-// import Contacts from './Components/Contacts';
+import Contacts from './Components/ContactsPage/index';
 // import Settings from './Components/Settings';
 
 const App = () => {
@@ -21,9 +21,9 @@ const App = () => {
             {/* Uncomment and add the routes as needed */}
              <Route path="/chats" element={<Chats />} />
             {/* <Route path="/groups" element={<Groups />} />
-            <Route path="/call" element={<Call />} />
+            <Route path="/call" element={<Call />} /> */}
             <Route path="/contacts" element={<Contacts />} />
-            <Route path="/settings" element={<Settings />} />  */}
+            {/* <Route path="/settings" element={<Settings />} />  */}
           </Routes>
         </AppLayout>
       </Router>
