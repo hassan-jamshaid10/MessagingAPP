@@ -18,22 +18,23 @@ const App = () => {
   // const theme = themeMode === 'light' ? lightTheme : darkTheme;
 
   return (
-    <LoginPage/>
+  
     // <ThemeProvider theme={theme}>
-    //   <CssBaseline />
-      // <Router>
-      //   <AppLayout>
-      //     <Routes>
-      //       <Route path="/" element={<Home />} />
-      //       {/* Uncomment and add the routes as needed */}
-      //       {/* <Route path="/chats" element={<Chats />} />
-      //       <Route path="/groups" element={<Groups />} />
-      //       <Route path="/call" element={<Call />} />
-      //       <Route path="/contacts" element={<Contacts />} />
-      //       <Route path="/settings" element={<Settings />} /> */}
-      //     </Routes>
-      //   </AppLayout>
-      // </Router>
+    //   <CssBaseline /> 
+      <Router>
+        <AppLayout>
+          <Routes>
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/" element={<Home />} />
+            {/* Uncomment and add the routes as needed */}
+            {/* <Route path="/chats" element={<Chats />} />
+            <Route path="/groups" element={<Groups />} />
+            <Route path="/call" element={<Call />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/settings" element={<Settings />} /> */}
+          </Routes>
+        </AppLayout>
+      </Router>
     /* </ThemeProvider> */
   );
 };
