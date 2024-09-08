@@ -1,4 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+// Async thunk for login
+export const login = createAsyncThunk(
+  'auth/login',
+  async ({ email, password }, thunkAPI) => {
+    try {
+      const response = await fetch('http://localhost:3001/users?email=' + email + '&password=' + password);
+      const data = await response.json();
+      if (data.length > 0) {
+        return data[0]; // Return the user object if found
+      } else {
+        return thunkAPI.rejectWithValue('Invalid email or password'); // Pass error to rejectWithValue
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Network error');
+    }
+  }
+);
 
 const initialState = {
   isAuthenticated: false,
@@ -10,23 +28,29 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loginSuccess: (state, action) => {
-      state.isAuthenticated = true;
-      state.user = action.payload;
-      state.error = null;
-    },
-    loginFailure: (state, action) => {
-      state.isAuthenticated = false;
-      state.user = null;
-      state.error = action.payload;
-    },
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isAuthenticated = false;
+        state.user = null;
+        state.error = action.payload;
+      });
+  },
 });
 
-export const { loginSuccess, loginFailure, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

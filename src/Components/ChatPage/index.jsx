@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -14,6 +14,7 @@ import {
   InputAdornment,
   Menu,
   MenuItem,
+  CircularProgress,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SendIcon from '@mui/icons-material/Send';
@@ -24,16 +25,26 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import CallIcon from '@mui/icons-material/Call';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectChat, sendMessage } from '../../Features/ChatSlice';
+import { selectChat, sendMessage, fetchConversations, fetchMessages } from '../../Features/ChatSlice';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
   const conversations = useSelector((state) => state.chat.conversations);
   const selectedChatId = useSelector((state) => state.chat.selectedChatId);
   const messages = useSelector((state) => state.chat.messages[selectedChatId] || []);
+  const chatStatus = useSelector((state) => state.chat.status);
   const [newMessage, setNewMessage] = useState('');
-
   const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    dispatch(fetchConversations());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (selectedChatId) {
+      dispatch(fetchMessages(selectedChatId));
+    }
+  }, [selectedChatId, dispatch]);
 
   const handleSelectChat = (chatId) => {
     dispatch(selectChat(chatId));
@@ -67,6 +78,10 @@ const ChatPage = () => {
           </IconButton>
         </Box>
         <List>
+          {chatStatus === 'loading' && <CircularProgress />}
+          {conversations.length === 0 && chatStatus !== 'loading' && (
+            <Typography variant="body1">No conversations available</Typography>
+          )}
           {conversations.map((conversation) => (
             <ListItem
               button
@@ -92,7 +107,7 @@ const ChatPage = () => {
         {selectedChatId && (
           <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
             <Typography variant="h6">
-              Chat with {conversations.find((conv) => conv.id === selectedChatId).name}
+              Chat with {conversations.find((conv) => conv.id === selectedChatId)?.name || 'Unknown'}
             </Typography>
             <Box>
               <IconButton color="primary">
@@ -109,6 +124,9 @@ const ChatPage = () => {
 
         {/* Chat Messages */}
         <Box mt={2} flexGrow={1} overflow="auto">
+          {messages.length === 0 && chatStatus !== 'loading' && (
+            <Typography variant="body1">No messages yet</Typography>
+          )}
           {messages.map((msg, index) => (
             <Box key={index} mb={1}>
               <Typography variant="body1" color={msg.sender === 'You' ? 'primary' : 'textSecondary'}>

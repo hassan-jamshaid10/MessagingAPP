@@ -1,27 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// Sample initial state with dummy data
+// Thunks for fetching conversations and messages
+export const fetchConversations = createAsyncThunk(
+  'chat/fetchConversations',
+  async () => {
+    const response = await fetch('http://localhost:3001/contacts'); // Fetch contacts as conversations
+    return await response.json();
+  }
+);
+
+export const fetchMessages = createAsyncThunk(
+  'chat/fetchMessages',
+  async (contactId) => {
+    // Simulating fetching messages; replace with real API if available
+    const response = await fetch(`http://localhost:3001/messages/${contactId}`);
+    return await response.json();
+  }
+);
+
 const initialState = {
-  conversations: [
-    { id: 1, name: 'John Doe', lastMessage: 'Hey, how are you?', avatar: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Jane Smith', lastMessage: 'Wanna catch up later?', avatar: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Mike Johnson', lastMessage: 'Got the files!', avatar: 'https://via.placeholder.com/150' },
-  ],
+  conversations: [], // Updated to be dynamic
   selectedChatId: null,
-  messages: {
-    1: [
-      { sender: 'John Doe', message: 'Hey, how are you?' },
-      { sender: 'You', message: 'I\'m good, thanks!' },
-    ],
-    2: [
-      { sender: 'Jane Smith', message: 'Wanna catch up later?' },
-      { sender: 'You', message: 'Sure, what time?' },
-    ],
-    3: [
-      { sender: 'Mike Johnson', message: 'Got the files!' },
-      { sender: 'You', message: 'Great, thanks!' },
-    ],
-  },
+  messages: {}, // Updated to be dynamic
+  status: 'idle',
+  error: null,
 };
 
 const chatSlice = createSlice({
@@ -33,13 +35,40 @@ const chatSlice = createSlice({
     },
     sendMessage: (state, action) => {
       const { chatId, message } = action.payload;
-      state.messages[chatId].push({ sender: 'You', message });
-      state.conversations = state.conversations.map(conversation =>
-        conversation.id === chatId
-          ? { ...conversation, lastMessage: message }
-          : conversation
-      );
+      if (state.messages[chatId]) {
+        state.messages[chatId].push({ sender: 'You', message });
+        state.conversations = state.conversations.map(conversation =>
+          conversation.id === chatId
+            ? { ...conversation, lastMessage: message }
+            : conversation
+        );
+      }
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchConversations.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchConversations.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.conversations = action.payload;
+      })
+      .addCase(fetchConversations.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(fetchMessages.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchMessages.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.messages[state.selectedChatId] = action.payload;
+      })
+      .addCase(fetchMessages.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
 

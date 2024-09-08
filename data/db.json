@@ -1,22 +1,55 @@
 {
-"courses" : [
+  "users": [
     {
-        "id": 1,
-        "name": "React",
-        "price": 100,
-        "duration": "2 months"
+      "id": "1",
+      "name": "Hassan",
+      "email": "hassan@gmail.com",
+      "password": "123",
+      "isAuthenticated": true
     },
     {
-        "id": 2,
-        "name": "Angular",
-        "price": 200,
-        "duration": "3 months"
+      "id": "2",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "password123",
+      "isAuthenticated": false
     },
     {
-        "id": 3,
-        "name": "Vue",
-        "price": 300,
-        "duration": "4 months"
+      "id": "3",
+      "name": "abc",
+      "email": "abc@gmail.com",
+      "password": "1",
+      "isAuthenticated": true
+    },
+    {
+      "id": "4",
+      "name": "abx",
+      "email": "abx@gmail.com",
+      "password": "1",
+      "isAuthenticated": true
     }
-]
+  ],
+  "contacts": [
+    {
+      "id": "1",
+      "name": "Alice Smith",
+      "email": "alice.smith@example.com",
+      "phone": "+1234567890",
+      "address": "123 Elm Street, Springfield, IL"
+    },
+    {
+      "id": "2",
+      "name": "Bob Johnson",
+      "email": "bob.johnson@example.com",
+      "phone": "+0987654321",
+      "address": "456 Oak Avenue, Metropolis, NY"
+    },
+    {
+      "id": "3",
+      "name": "Charlie Brown",
+      "email": "charlie.brown@example.com",
+      "phone": "+1122334455",
+      "address": "789 Maple Lane, Smallville, KS"
+    }
+  ]
 }

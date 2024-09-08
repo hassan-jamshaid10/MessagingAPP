@@ -1,38 +1,89 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+export const fetchContacts = createAsyncThunk(
+  'contacts/fetchContacts',
+  async () => {
+    const response = await fetch('http://localhost:3001/contacts');
+    return await response.json();
+  }
+);
+
+export const addContact = createAsyncThunk(
+  'contacts/addContact',
+  async (newContact) => {
+    const response = await fetch('http://localhost:3001/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newContact),
+    });
+    return await response.json();
+  }
+);
+
+export const deleteContact = createAsyncThunk(
+  'contacts/deleteContact',
+  async (id) => {
+    await fetch(`http://localhost:3001/contacts/${id}`, {
+      method: 'DELETE',
+    });
+    return id;
+  }
+);
+
+export const editContact = createAsyncThunk(
+  'contacts/editContact',
+  async (contact) => {
+    const { id, ...updates } = contact;
+    const response = await fetch(`http://localhost:3001/contacts/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updates),
+    });
+    return await response.json();
+  }
+);
 
 const initialState = {
-  contacts: [
-    { id: '1', name: 'John Doe', phone: '123-456-7890', avatar: 'https://via.placeholder.com/150' },
-    { id: '2', name: 'Jane Smith', phone: '098-765-4321', avatar: 'https://via.placeholder.com/150' },
-    // Add more contacts
-  ],
+  contacts: [],
+  status: 'idle',
+  error: null,
 };
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  reducers: {
-    addContact: (state, action) => {
-      const newContact = { id: nanoid(), ...action.payload };
-      state.contacts.push(newContact);
-    },
-    deleteContact: (state, action) => {
-      state.contacts = state.contacts.filter(contact => contact.id !== action.payload);
-    },
-    editContact: (state, action) => {
-      const { id, name, phone, avatar } = action.payload;
-      const existingContact = state.contacts.find(contact => contact.id === id);
-      if (existingContact) {
-        existingContact.name = name;
-        existingContact.phone = phone;
-        existingContact.avatar = avatar;
-      }
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchContacts.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.contacts = action.payload;
+      })
+      .addCase(fetchContacts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.contacts.push(action.payload);
+      })
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.contacts = state.contacts.filter(contact => contact.id !== action.payload);
+      })
+      .addCase(editContact.fulfilled, (state, action) => {
+        const index = state.contacts.findIndex(contact => contact.id === action.payload.id);
+        if (index !== -1) {
+          state.contacts[index] = action.payload;
+        }
+      });
   },
 });
-
-export const { addContact, deleteContact, editContact } = contactsSlice.actions;
 
 export const selectContacts = (state) => state.contacts.contacts;
 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Avatar, List, ListItem, ListItemText, ListItemAvatar, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Fab } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts, deleteContact, editContact, addContact } from '../../Features/ContactSlice'; // Assuming ContactSlice is set up properly
+import { selectContacts, deleteContact, editContact, addContact, fetchContacts } from '../../Features/ContactSlice';
 import CallIcon from '@mui/icons-material/Call';
 import ChatIcon from '@mui/icons-material/Chat';
 import EditIcon from '@mui/icons-material/Edit';
@@ -11,11 +11,14 @@ import AddIcon from '@mui/icons-material/Add';
 const ContactsPage = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
-  
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-  const [addDialogOpen, setAddDialogOpen] = useState(false); // For adding new contact
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState(null);
   const [newContact, setNewContact] = useState({ name: '', phone: '', avatar: '' });
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const handleEditClick = (contact) => {
     setSelectedContact(contact);
@@ -49,7 +52,7 @@ const ContactsPage = () => {
   const handleAddNewContact = () => {
     dispatch(addContact(newContact));
     setAddDialogOpen(false);
-    setNewContact({ name: '', phone: '', avatar: '' }); // Reset form after submission
+    setNewContact({ name: '', phone: '', avatar: '' });
   };
 
   const handleNewInputChange = (e) => {
@@ -63,7 +66,6 @@ const ContactsPage = () => {
         Contacts
       </Typography>
 
-      {/* Add Contact Button */}
       <Fab 
         color="primary" 
         aria-label="add" 
