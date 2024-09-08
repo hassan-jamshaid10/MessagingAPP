@@ -15,6 +15,8 @@ const Sidebar = ({ name, email }) => {
     <Box
       display="flex"
       flexDirection="column"
+      onMouseEnter={() => setExpanded(true)} // Expand when cursor is on the sidebar
+      onMouseLeave={() => setExpanded(false)} // Collapse when cursor leaves the sidebar
       sx={{
         height: '100%',
         width: expanded ? '250px' : '70px',
@@ -22,9 +24,6 @@ const Sidebar = ({ name, email }) => {
         backgroundColor: '#071952',
         color: '#EBF4F6',
         overflow: 'hidden',
-        '&:hover': {
-          width: '250px', // Expand on hover
-        },
       }}
     >
       <Box p={2} display="flex" alignItems="center">
@@ -38,7 +37,7 @@ const Sidebar = ({ name, email }) => {
         >
           {expanded ? (
             <Typography variant="h6" sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center' }}>
-              🐱
+            🐱
               <a href="#" style={{ marginLeft: '16px', textDecoration: 'none', color: '#EBF4F6' }}>MESSAGING APP</a>
             </Typography>
           ) : (
@@ -89,24 +88,24 @@ const Sidebar = ({ name, email }) => {
       </List>
 
       <Box sx={{ mt: 'auto', p: 2 }}>
-  <Box display="flex" alignItems="center">
-    <Avatar
-      alt={name}
-      src="https://via.placeholder.com/150"
-      sx={{
-        width: '30px',
-        height: '30px',
-        borderRadius: '50%',
-        marginRight: expanded ? '14px' : '8px',
-        marginLeft: expanded ? '0px' : '0px', // Adjusted left margin
-      }}
-    />
-    {expanded && (
-      <Box>
-        <Typography variant="subtitle1" color="#EBF4F6">{name}</Typography>
-        <Typography variant="caption" color="#EBF4F6">{email}</Typography>
-      </Box>
-    )}
+        <Box display="flex" alignItems="center">
+          <Avatar
+            alt={name}
+            src="https://avatars.githubusercontent.com/u/119107853?s=400&u=795438ac2230ca0a9f896e5208d4b879a8687500&v=4"
+            sx={{
+              width: '30px',
+              height: '30px',
+              borderRadius: '50%',
+              marginRight: expanded ? '14px' : '8px',
+              marginLeft: expanded ? '0px' : '0px', // Adjusted left margin
+            }}
+          />
+          {expanded && (
+            <Box>
+              <Typography variant="subtitle1" color="#EBF4F6">{name}</Typography>
+              <Typography variant="caption" color="#EBF4F6">{email}</Typography>
+            </Box>
+          )}
         </Box>
       </Box>
     </Box>
