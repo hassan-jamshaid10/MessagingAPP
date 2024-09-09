@@ -25,16 +25,21 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import CallIcon from '@mui/icons-material/Call';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom'; // Import useParams
 import { selectChat, sendMessage, fetchConversations, fetchMessages } from '../../Features/ChatSlice';
+import CallPopup from '../CallTab';
 
 const ChatPage = () => {
+  const { chatId } = useParams(); // Extract chatId from URL
   const dispatch = useDispatch();
   const conversations = useSelector((state) => state.chat.conversations);
-  const selectedChatId = useSelector((state) => state.chat.selectedChatId);
+  const selectedChatId = chatId; // Use chatId from URL as the selected chat
   const messages = useSelector((state) => state.chat.messages[selectedChatId] || []);
   const chatStatus = useSelector((state) => state.chat.status);
   const [newMessage, setNewMessage] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openCallPopup, setOpenCallPopup] = useState(false);
+  const [selectedContact, setSelectedContact] = useState(null);
 
   useEffect(() => {
     dispatch(fetchConversations());
@@ -47,7 +52,7 @@ const ChatPage = () => {
   }, [selectedChatId, dispatch]);
 
   const handleSelectChat = (chatId) => {
-    dispatch(selectChat(chatId));
+    // You might want to add navigation logic here if needed
   };
 
   const handleSendMessage = () => {
@@ -63,6 +68,19 @@ const ChatPage = () => {
 
   const handleAttachClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleCallClick = () => {
+    if (selectedChatId) {
+      const contact = conversations.find((conv) => conv.id === selectedChatId);
+      setSelectedContact(contact);
+      setOpenCallPopup(true);
+    }
+  };
+
+  const handleCloseCallPopup = () => {
+    setOpenCallPopup(false);
+    setSelectedContact(null);
   };
 
   return (
@@ -110,10 +128,10 @@ const ChatPage = () => {
               Chat with {conversations.find((conv) => conv.id === selectedChatId)?.name || 'Unknown'}
             </Typography>
             <Box>
-              <IconButton color="primary">
+              <IconButton color="primary" onClick={handleCallClick}>
                 <CallIcon />
               </IconButton>
-              <IconButton color="primary">
+              <IconButton color="primary" onClick={handleCallClick}>
                 <VideoCallIcon />
               </IconButton>
             </Box>
@@ -180,6 +198,11 @@ const ChatPage = () => {
           </Box>
         )}
       </Box>
+
+      {/* Call Popup */}
+      {selectedContact && (
+        <CallPopup open={openCallPopup} onClose={handleCloseCallPopup} contact={selectedContact} />
+      )}
     </Box>
   );
 };

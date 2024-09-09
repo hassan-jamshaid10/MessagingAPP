@@ -10,14 +10,18 @@ import AddIcon from '@mui/icons-material/Add';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import CallPopup from '../CallTab/index';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const ContactsPage = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize useNavigate
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState(null);
   const [newContact, setNewContact] = useState({ name: '', phone: '', avatar: '' });
+  const [callPopupOpen, setCallPopupOpen] = useState(false); // State for call popup
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -44,14 +48,6 @@ const ContactsPage = () => {
     setSelectedContact({ ...selectedContact, [name]: value });
   };
 
-  const handleCall = (phone) => {
-    alert(`Calling ${phone}`);
-  };
-
-  const handleMessage = (phone) => {
-    alert(`Messaging ${phone}`);
-  };
-
   const handleAddNewContact = () => {
     dispatch(addContact(newContact));
     setAddDialogOpen(false);
@@ -61,6 +57,21 @@ const ContactsPage = () => {
   const handleNewInputChange = (e) => {
     const { name, value } = e.target;
     setNewContact({ ...newContact, [name]: value });
+  };
+
+  const handleCallClick = (contact) => {
+    setSelectedContact(contact);
+    setCallPopupOpen(true);
+  };
+
+  const handleCloseCallPopup = () => {
+    setCallPopupOpen(false);
+    setSelectedContact(null);
+  };
+
+  const handleMessage = (contact) => {
+    // Navigate to the chat page with the contact's ID
+    navigate(`/chats/${contact.id}`); // Adjust this path as per your route configuration
   };
 
   return (
@@ -89,10 +100,10 @@ const ContactsPage = () => {
                 <ListItemText primary={contact.name} secondary={contact.phone} />
               </Box>
               <Box>
-                <IconButton color="primary" onClick={() => handleCall(contact.phone)}>
+                <IconButton color="primary" onClick={() => handleCallClick(contact)}>
                   <CallIcon />
                 </IconButton>
-                <IconButton color="primary" onClick={() => handleMessage(contact.phone)}>
+                <IconButton color="primary" onClick={() => handleMessage(contact)}>
                   <ChatIcon />
                 </IconButton>
                 <IconButton color="secondary" onClick={() => handleEditClick(contact)}>
@@ -185,32 +196,14 @@ const ContactsPage = () => {
         </Dialog>
       </Box>
 
-      {/* Footer */}
-      <Box
-        sx={{
-          backgroundColor: '#EBD3F8', // Footer background color
-          color: '#071952', // Footer text color
-          padding: '8px 16px', // Padding for the footer
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 1, // Gap between icons and text
-          fontSize: '0.875rem' // Font size for the footer text
-        }}
-      >
-        <IconButton href="https://github.com" target="_blank" aria-label="GitHub">
-          <GitHubIcon sx={{ color: '#071952' }} />
-        </IconButton>
-        <IconButton href="https://instagram.com" target="_blank" aria-label="Instagram">
-          <InstagramIcon sx={{ color: '#071952' }} />
-        </IconButton>
-        <IconButton href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
-          <LinkedInIcon sx={{ color: '#071952' }} />
-        </IconButton>
-        <Typography variant="body2">
-          &copy; {new Date().getFullYear()}<a> 🐱 MESSAGING APP</a>
-        </Typography>
-      </Box>
+      {/* Call Popup Dialog */}
+      {selectedContact && (
+        <CallPopup 
+          open={callPopupOpen} 
+          onClose={handleCloseCallPopup} 
+          contact={selectedContact} 
+        />
+      )}
     </Box>
   );
 };
