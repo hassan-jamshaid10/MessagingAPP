@@ -68,7 +68,7 @@ const ChatPage = () => {
   return (
     <Box display="flex" height="100vh">
       {/* Chat List Section */}
-      <Box width="30%" bgcolor="#f7f7f7" p={2} borderRight="1px solid #ddd">
+      <Box width="30%" bgcolor="#f7f7f7" p={2} borderRight="1px solid #ddd" overflow="hidden">
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
           <Typography variant="h5" gutterBottom>
             Conversations
@@ -77,7 +77,7 @@ const ChatPage = () => {
             <AddIcon />
           </IconButton>
         </Box>
-        <List>
+        <List sx={{ overflowY: 'auto', maxHeight: 'calc(100vh - 100px)' }}>
           {chatStatus === 'loading' && <CircularProgress />}
           {conversations.length === 0 && chatStatus !== 'loading' && (
             <Typography variant="body1">No conversations available</Typography>
