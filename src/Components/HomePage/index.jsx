@@ -5,6 +5,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import DashboardHeader from '../DashHeader';
 import OnlineFriends from '../OnlineFriends';
+import UnreadMessages from '../UnreadMessages';
 
 const Home = () => {
   return (
@@ -12,16 +13,8 @@ const Home = () => {
       <Box flexGrow={1}>
         <DashboardHeader />
         <OnlineFriends />
-
-        {/* Session Graph Section */}
-        <Box mt={4}>
-          <Paper sx={{ padding: 3, backgroundColor: '#F3F9F9', color: '#071952' }}>
-            <Typography variant="h6">Sessions (Last 30 Days)</Typography>
-            <Box height="200px" display="flex" justifyContent="center" alignItems="center">
-              <Typography>[Chart Placeholder]</Typography>
-            </Box>
-          </Paper>
-        </Box>
+        <UnreadMessages/>
+      
 
         {/* Page Views and Downloads */}
         <Box mt={4}>

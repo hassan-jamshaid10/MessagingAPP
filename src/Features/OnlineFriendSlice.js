@@ -1,31 +1,45 @@
-// src/slices/onlineFriendsSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { createSlice } from '@reduxjs/toolkit';
+// Fetch online friends from contacts
+export const fetchOnlineFriends = createAsyncThunk(
+  'onlineFriends/fetchOnlineFriends',
+  async () => {
+    const response = await fetch('http://localhost:3001/contacts');
+    const data = await response.json();
+
+    // If data is an array directly
+    if (Array.isArray(data)) {
+      return data.filter(contact => contact.online);
+    } else {
+      // Handle unexpected data format
+      console.error('Unexpected data format:', data);
+      return [];
+    }
+  }
+);
 
 const onlineFriendsSlice = createSlice({
   name: 'onlineFriends',
   initialState: {
-    friends: [
-        { name: 'Hassan', avatar: 'https://avatars.githubusercontent.com/u/119107853?s=400&u=795438ac2230ca0a9f896e5208d4b879a8687500&v=4' },
-      ]
-      
+    friends: [],
+    status: 'idle',
+    error: null,
   },
-  reducers: {
-    addFriend: (state, action) => {
-      state.friends.push(action.payload);
-    },
-    removeFriend: (state, action) => {
-      state.friends = state.friends.filter(friend => friend.name !== action.payload.name);
-    },
-    updateFriend: (state, action) => {
-      const index = state.friends.findIndex(friend => friend.name === action.payload.name);
-      if (index !== -1) {
-        state.friends[index] = action.payload;
-      }
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchOnlineFriends.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchOnlineFriends.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.friends = action.payload;
+      })
+      .addCase(fetchOnlineFriends.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
-
-export const { addFriend, removeFriend, updateFriend } = onlineFriendsSlice.actions;
 
 export default onlineFriendsSlice.reducer;

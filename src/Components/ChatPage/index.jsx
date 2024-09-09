@@ -9,7 +9,6 @@ import {
   ListItemAvatar,
   Divider,
   TextField,
-  Button,
   IconButton,
   InputAdornment,
   Menu,
@@ -25,8 +24,8 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import CallIcon from '@mui/icons-material/Call';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom'; // Import useParams
-import { selectChat, sendMessage, fetchConversations, fetchMessages } from '../../Features/ChatSlice';
+import { useParams } from 'react-router-dom';
+import { selectChat, sendMessage, fetchConversations, fetchMessages, receiveMessage } from '../../Features/ChatSlice';
 import CallPopup from '../CallTab';
 
 const ChatPage = () => {
@@ -36,6 +35,7 @@ const ChatPage = () => {
   const selectedChatId = chatId; // Use chatId from URL as the selected chat
   const messages = useSelector((state) => state.chat.messages[selectedChatId] || []);
   const chatStatus = useSelector((state) => state.chat.status);
+  const unreadMessages = useSelector((state) => state.chat.unreadMessages);
   const [newMessage, setNewMessage] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const [openCallPopup, setOpenCallPopup] = useState(false);
@@ -51,8 +51,16 @@ const ChatPage = () => {
     }
   }, [selectedChatId, dispatch]);
 
+  useEffect(() => {
+    if (selectedChatId) {
+      // Reset unread messages count for the selected chat
+      dispatch(receiveMessage({ chatId: selectedChatId, message: {} }));
+    }
+  }, [selectedChatId, dispatch]);
+
   const handleSelectChat = (chatId) => {
-    // You might want to add navigation logic here if needed
+    dispatch(selectChat(chatId));
+    dispatch(receiveMessage({ chatId, message: {} })); // Reset unread count
   };
 
   const handleSendMessage = () => {
@@ -112,7 +120,7 @@ const ChatPage = () => {
               </ListItemAvatar>
               <ListItemText
                 primary={conversation.name}
-                secondary={conversation.lastMessage}
+                secondary={`Unread messages: ${unreadMessages[conversation.id] || 0}`}
               />
             </ListItem>
           ))}

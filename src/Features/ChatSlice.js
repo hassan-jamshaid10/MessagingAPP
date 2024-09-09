@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchConversations = createAsyncThunk(
   'chat/fetchConversations',
   async () => {
-    const response = await fetch('http://localhost:3001/contacts'); // Fetch contacts as conversations
+    const response = await fetch('http://localhost:3001/contacts');
     return await response.json();
   }
 );
@@ -12,16 +12,16 @@ export const fetchConversations = createAsyncThunk(
 export const fetchMessages = createAsyncThunk(
   'chat/fetchMessages',
   async (contactId) => {
-    // Simulating fetching messages; replace with real API if available
     const response = await fetch(`http://localhost:3001/messages/${contactId}`);
     return await response.json();
   }
 );
 
 const initialState = {
-  conversations: [], // Updated to be dynamic
+  conversations: [],
   selectedChatId: null,
-  messages: {}, // Updated to be dynamic
+  messages: {},
+  unreadMessages: {}, // Add unread messages state
   status: 'idle',
   error: null,
 };
@@ -32,6 +32,7 @@ const chatSlice = createSlice({
   reducers: {
     selectChat: (state, action) => {
       state.selectedChatId = action.payload;
+      state.unreadMessages[action.payload] = 0; // Reset unread messages count
     },
     sendMessage: (state, action) => {
       const { chatId, message } = action.payload;
@@ -42,6 +43,15 @@ const chatSlice = createSlice({
             ? { ...conversation, lastMessage: message }
             : conversation
         );
+      }
+    },
+    receiveMessage: (state, action) => {
+      const { chatId, message } = action.payload;
+      if (state.messages[chatId]) {
+        state.messages[chatId].push(message);
+        if (state.selectedChatId !== chatId) {
+          state.unreadMessages[chatId] = (state.unreadMessages[chatId] || 0) + 1;
+        }
       }
     },
   },
@@ -72,5 +82,5 @@ const chatSlice = createSlice({
   },
 });
 
-export const { selectChat, sendMessage } = chatSlice.actions;
+export const { selectChat, sendMessage, receiveMessage } = chatSlice.actions;
 export default chatSlice.reducer;
