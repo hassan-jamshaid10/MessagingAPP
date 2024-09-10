@@ -8,6 +8,7 @@ import SignUpPage from './Components/SignUpPage/index';
 import Chats from './Components/ChatPage/index';
 import Contacts from './Components/ContactsPage/index';
 import CallPage from './Components/CallLogPage/index';
+import GeminiPage from './Components/GeminiChatbot/index';
 
 // ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
@@ -73,6 +74,16 @@ const App = () => {
             <ProtectedRoute>
               <AppLayout>
                 <CallPage />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/gemini"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <GeminiPage />
               </AppLayout>
             </ProtectedRoute>
           }

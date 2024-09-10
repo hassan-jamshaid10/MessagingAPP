@@ -7,6 +7,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import CallIcon from '@mui/icons-material/Call';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import SettingsIcon from '@mui/icons-material/Settings';
+import GoogleIcon from '@mui/icons-material/Google'; // Import the Google icon
 
 const Sidebar = ({ name, email }) => {
   const [expanded, setExpanded] = useState(true);
@@ -91,6 +92,13 @@ const Sidebar = ({ name, email }) => {
             <SettingsIcon sx={{ color: '#EBD3F8' }} />
           </ListItemIcon>
           {expanded && <ListItemText primary="Settings" sx={{ color: '#EBD3F8' }} />}
+        </ListItem>
+        {/* Google Section */}
+        <ListItem button component={Link} to="/gemini" sx={{ padding: '8px 16px' }}>
+          <ListItemIcon>
+            <GoogleIcon sx={{ color: '#EBD3F8' }} />
+          </ListItemIcon>
+          {expanded && <ListItemText primary="Gemini" sx={{ color: '#EBD3F8' }} />}
         </ListItem>
       </List>
 
