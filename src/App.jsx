@@ -9,7 +9,7 @@ import Chats from './Components/ChatPage/index';
 import Contacts from './Components/ContactsPage/index';
 import CallPage from './Components/CallLogPage/index';
 import GeminiPage from './Components/GeminiChatbot/index';
-
+//sockets
 // ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);

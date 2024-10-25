@@ -26,9 +26,7 @@ import CallIcon from '@mui/icons-material/Call';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom'; // Import useParams
-import { selectChat, sendMessage, fetchConversations, fetchMessages } from '../../Features/ChatSlice';
-import CallPopup from '../CallTab';
-
+//sockets
 const ChatPage = () => {
   const { chatId } = useParams(); // Extract chatId from URL
   const dispatch = useDispatch();
