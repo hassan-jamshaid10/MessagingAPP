@@ -18,33 +18,38 @@ const GeminiChat = () => {
   const status = useSelector((state) => state.gemini.status);
   const error = useSelector((state) => state.gemini.error);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (newMessage.trim()) {
-      // Add user message locally
-      dispatch(addMessage({ text: newMessage, sender: 'user' }));
+      // Add the user's message to the local state
+      dispatch(addMessage({ text: newMessage, role: 'user' }));
       
-      // Send the message to the API
-      dispatch(sendMessage(newMessage))
-        .unwrap()
-        .catch(err => console.error("Failed to send message:", err));
-      
-      setNewMessage(''); // Clear input field
+      try {
+        // Send the user's message to the API and add AI's response
+        await dispatch(sendMessage(newMessage)).unwrap();
+      } catch (err) {
+        console.error('Failed to generate AI response:', err);
+      }
+
+      setNewMessage(''); // Clear the input field
     }
   };
 
   return (
     <Box display="flex" flexDirection="column" p={2} height="100%">
+      {/* Chat messages */}
       <Box flexGrow={1} overflow="auto" mb={2}>
         {messages.length === 0 && status !== 'loading' && (
-          <Typography variant="body1" color="textSecondary">No messages yet.</Typography>
+          <Typography variant="body1" color="textSecondary">
+            No messages yet.
+          </Typography>
         )}
         {messages.map((msg, index) => (
           <Box key={index} mb={1}>
             <Typography
               variant="body1"
-              align={msg.sender === 'user' ? 'right' : 'left'}
+              align={msg.role === 'user' ? 'right' : 'left'}
               sx={{
-                backgroundColor: msg.sender === 'user' ? '#AD49E1' : '#7A1CAC',
+                backgroundColor: msg.role === 'user' ? '#AD49E1' : '#7A1CAC',
                 color: '#EBD3F8',
                 padding: '8px',
                 borderRadius: '4px',
@@ -56,13 +61,17 @@ const GeminiChat = () => {
             </Typography>
           </Box>
         ))}
+        {/* Loading indicator */}
         {status === 'loading' && <CircularProgress />}
+        {/* Error message */}
         {error && (
           <Alert severity="error" sx={{ mt: 2 }}>
             {error}
           </Alert>
         )}
       </Box>
+
+      {/* Input field and send button */}
       <Box display="flex" alignItems="center">
         <TextField
           variant="outlined"
@@ -72,7 +81,11 @@ const GeminiChat = () => {
           onChange={(e) => setNewMessage(e.target.value)}
           disabled={status === 'loading'}
         />
-        <IconButton color="primary" onClick={handleSendMessage} disabled={status === 'loading'}>
+        <IconButton
+          color="primary"
+          onClick={handleSendMessage}
+          disabled={status === 'loading' || !newMessage.trim()}
+        >
           <SendIcon />
         </IconButton>
       </Box>

@@ -1,37 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+//import dotenv from 'dotenv';
 
-// URL for the Google Gemini API
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
+//dotenv.config();
 
-// Get the API key from environment variables
-const API_KEY = "AIzaSyBfY6DeTJ2Y-e_hnbJDhtEgk7z02eLg6Io";
-
-if (!API_KEY) {
-  throw new Error('REACT_APP_GEMINI_API_KEY is not defined');
-}
+// Initialize Google Generative AI
+const genAi = new GoogleGenerativeAI("AIzaSyDsF8r5h4Y64Md64FWcu6YoIGHeLvgmxNo");
 
 // Async thunk for sending a message
 export const sendMessage = createAsyncThunk(
   'gemini/sendMessage',
   async (message, { rejectWithValue }) => {
     try {
-      const response = await axios.post(GEMINI_API_URL, {
-        contents: [
-          {
-            role: 'user',
-            parts: [{ text: message }],
-          },
-        ],
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': API_KEY,
-        },
+      // Retrieve the generative model
+      const model = genAi.getGenerativeModel({
+        model: "gemini-1.5-flash",
       });
-      return response.data;
+
+      // Generate content
+      const response = await model.generateContent(message);
+      const generatedText = await response.response.text();
+
+      return generatedText; // Return the generated response
     } catch (error) {
-      return rejectWithValue(error.response ? error.response.data : 'Error occurred');
+      return rejectWithValue(error.message || 'An error occurred while generating content');
     }
   }
 );
@@ -55,7 +47,10 @@ export const geminiSlice = createSlice({
       })
       .addCase(sendMessage.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.messages.push(action.payload);
+        state.messages.push({
+          role: 'ai',
+          text: action.payload, // Add generated content to messages
+        });
       })
       .addCase(sendMessage.rejected, (state, action) => {
         state.status = 'failed';
