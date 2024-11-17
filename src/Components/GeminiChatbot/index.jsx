@@ -83,7 +83,7 @@ const GeminiChat = () => {
                   padding: '8px',
                   borderRadius: '8px',
                   maxWidth: '80%',
-                  display: 'inline-block',
+                  display: 'inline-block',//43
                 }}
               >
                 {msg.text}
