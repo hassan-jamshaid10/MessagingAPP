@@ -1,175 +1,180 @@
 {
-    "users": [
-      {
-        "id": "1",
-        "name": "Hassan",
-        "email": "hassan@gmail.com",
-        "password": "123",
-        "isAuthenticated": true
-      },
-      {
-        "id": "2",
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "password": "password123",
-        "isAuthenticated": false
-      },
-      {
-        "id": "3",
-        "name": "abc",
-        "email": "abc@gmail.com",
-        "password": "1",
-        "isAuthenticated": true
-      },
-      {
-        "id": "4",
-        "name": "abx",
-        "email": "abx@gmail.com",
-        "password": "1",
-        "isAuthenticated": true
-      },
-      {
-        "id": "60a0",
-        "name": "Hassan Jamshaid",
-        "email": "hjamshaid81@gmail.com",
-        "password": "Hassan12"
-      },
-      {
-        "id": "aa61",
-        "name": "wyz",
-        "email": "jamshaidhassan33@gmail.com",
-        "password": "123"
-      }
-    ],
-    "contacts": [
-      {
-        "id": "1",
-        "name": "Alice Smith",
-        "email": "alice.smith@example.com",
-        "phone": "+1234567890",
-        "address": "123 Elm Street, Springfield, IL",
-        "online": true
-      },
-      {
-        "id": "7",
-        "name": "Grace Lee",
-        "email": "grace.lee@example.com",
-        "phone": "+1623789012",
-        "address": "404 Maple Lane, Coast City, WA",
-        "online": true
-      },
-      {
-        "id": "8",
-        "name": "Henry Kim",
-        "email": "henry.kim@example.com",
-        "phone": "+1723890123",
-        "address": "505 Cedar Avenue, Keystone City, OH",
-        "online": true
-      },
-      {
-        "id": "9",
-        "name": "Ivy Baker",
-        "email": "ivy.baker@example.com",
-        "phone": "+1823901234",
-        "address": "606 Walnut Street, Smallville, KS",
-        "online": true
-      },
-      {
-        "id": "10",
-        "name": "Jack White",
-        "email": "jack.white@example.com",
-        "phone": "+1924012345",
-        "address": "707 Pine Street, Gotham, NY",
-        "online": true
-      },
-      {
-        "id": "11",
-        "name": "Kara Davis",
-        "email": "kara.davis@example.com",
-        "phone": "+2024123456",
-        "address": "808 Oak Avenue, Star City, CA",
-        "online": true
-      },
-      {
-        "id": "12",
-        "name": "Leo Scott",
-        "email": "leo.scott@example.com",
-        "phone": "+2124234567",
-        "address": "909 Birch Road, Central City, FL",
-        "online": true
-      },
-      {
-        "id": "13",
-        "name": "Mia Clark",
-        "email": "mia.clark@example.com",
-        "phone": "+2224345678",
-        "address": "101 Pine Street, Gotham, NY",
-        "online": true
-      },
-      {
-        "id": "14",
-        "name": "Noah Hall",
-        "email": "noah.hall@example.com",
-        "phone": "+2324456789",
-        "address": "202 Cedar Avenue, Coast City, WA",
-        "online": true
-      },
-      {
-        "id": "15",
-        "name": "Olivia Lewis",
-        "email": "olivia.lewis@example.com",
-        "phone": "+2424567890",
-        "address": "303 Maple Lane, Keystone City, OH",
-        "online": true
-      },
-      {
-        "id": "16",
-        "name": "Paul Young",
-        "email": "paul.young@example.com",
-        "phone": "+2524678901",
-        "address": "404 Walnut Street, Smallville, KS",
-        "online": false
-      },
-      {
-        "id": "17",
-        "name": "Quinn Reed",
-        "email": "quinn.reed@example.com",
-        "phone": "+2624789012",
-        "address": "505 Pine Street, Gotham, NY",
-        "online": false
-      },
-      {
-        "id": "18",
-        "name": "Ruby Green",
-        "email": "ruby.green@example.com",
-        "phone": "+2724890123",
-        "address": "606 Oak Avenue, Star City, CA",
-        "online": false
-      },
-      {
-        "id": "19",
-        "name": "Sam Brown",
-        "email": "sam.brown@example.com",
-        "phone": "+2824901234",
-        "address": "707 Birch Road, Central City, FL",
-        "online": false
-      },
-      {
-        "id": "20",
-        "name": "Tina Jones",
-        "email": "tina.jones@example.com",
-        "phone": "+2925012345",
-        "address": "808 Cedar Avenue, Coast City, WA",
-        "online": false
-      },
-      {
-        "id": "21",
-        "name": "Uma Patel",
-        "email": "uma.patel@example.com",
-        "phone": "+3025123456",
-        "address": "909 Maple Lane, Keystone City, OH",
-        "online": false
-      }
-    ]
-  }
-  
+  "users": [
+    {
+      "id": "1",
+      "name": "Hassan",
+      "email": "hassan@gmail.com",
+      "password": "123",
+      "isAuthenticated": true
+    },
+    {
+      "id": "2",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "password123",
+      "isAuthenticated": false
+    },
+    {
+      "id": "3",
+      "name": "abc",
+      "email": "abc@gmail.com",
+      "password": "1",
+      "isAuthenticated": true
+    },
+    {
+      "id": "4",
+      "name": "abx",
+      "email": "abx@gmail.com",
+      "password": "1",
+      "isAuthenticated": true
+    },
+    {
+      "id": "60a0",
+      "name": "Hassan Jamshaid",
+      "email": "hjamshaid81@gmail.com",
+      "password": "Hassan12"
+    },
+    {
+      "id": "aa61",
+      "name": "wyz",
+      "email": "jamshaidhassan33@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "28e9",
+      "name": "talha",
+      "email": "talha@gmail.com",
+      "password": "123"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "1",
+      "name": "Alice Smith",
+      "email": "alice.smith@example.com",
+      "phone": "+1234567890",
+      "address": "123 Elm Street, Springfield, IL",
+      "online": true
+    },
+    {
+      "id": "7",
+      "name": "Grace Lee",
+      "email": "grace.lee@example.com",
+      "phone": "+1623789012",
+      "address": "404 Maple Lane, Coast City, WA",
+      "online": true
+    },
+    {
+      "id": "8",
+      "name": "Henry Kim",
+      "email": "henry.kim@example.com",
+      "phone": "+1723890123",
+      "address": "505 Cedar Avenue, Keystone City, OH",
+      "online": true
+    },
+    {
+      "id": "9",
+      "name": "Ivy Baker",
+      "email": "ivy.baker@example.com",
+      "phone": "+1823901234",
+      "address": "606 Walnut Street, Smallville, KS",
+      "online": true
+    },
+    {
+      "id": "10",
+      "name": "Jack White",
+      "email": "jack.white@example.com",
+      "phone": "+1924012345",
+      "address": "707 Pine Street, Gotham, NY",
+      "online": true
+    },
+    {
+      "id": "11",
+      "name": "Kara Davis",
+      "email": "kara.davis@example.com",
+      "phone": "+2024123456",
+      "address": "808 Oak Avenue, Star City, CA",
+      "online": true
+    },
+    {
+      "id": "12",
+      "name": "Leo Scott",
+      "email": "leo.scott@example.com",
+      "phone": "+2124234567",
+      "address": "909 Birch Road, Central City, FL",
+      "online": true
+    },
+    {
+      "id": "13",
+      "name": "Mia Clark",
+      "email": "mia.clark@example.com",
+      "phone": "+2224345678",
+      "address": "101 Pine Street, Gotham, NY",
+      "online": true
+    },
+    {
+      "id": "14",
+      "name": "Noah Hall",
+      "email": "noah.hall@example.com",
+      "phone": "+2324456789",
+      "address": "202 Cedar Avenue, Coast City, WA",
+      "online": true
+    },
+    {
+      "id": "15",
+      "name": "Olivia Lewis",
+      "email": "olivia.lewis@example.com",
+      "phone": "+2424567890",
+      "address": "303 Maple Lane, Keystone City, OH",
+      "online": true
+    },
+    {
+      "id": "16",
+      "name": "Paul Young",
+      "email": "paul.young@example.com",
+      "phone": "+2524678901",
+      "address": "404 Walnut Street, Smallville, KS",
+      "online": false
+    },
+    {
+      "id": "17",
+      "name": "Quinn Reed",
+      "email": "quinn.reed@example.com",
+      "phone": "+2624789012",
+      "address": "505 Pine Street, Gotham, NY",
+      "online": false
+    },
+    {
+      "id": "18",
+      "name": "Ruby Green",
+      "email": "ruby.green@example.com",
+      "phone": "+2724890123",
+      "address": "606 Oak Avenue, Star City, CA",
+      "online": false
+    },
+    {
+      "id": "19",
+      "name": "Sam Brown",
+      "email": "sam.brown@example.com",
+      "phone": "+2824901234",
+      "address": "707 Birch Road, Central City, FL",
+      "online": false
+    },
+    {
+      "id": "20",
+      "name": "Tina Jones",
+      "email": "tina.jones@example.com",
+      "phone": "+2925012345",
+      "address": "808 Cedar Avenue, Coast City, WA",
+      "online": false
+    },
+    {
+      "id": "21",
+      "name": "Uma Patel",
+      "email": "uma.patel@example.com",
+      "phone": "+3025123456",
+      "address": "909 Maple Lane, Keystone City, OH",
+      "online": false
+    }
+  ]
+}
