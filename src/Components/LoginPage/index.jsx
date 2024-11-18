@@ -22,6 +22,14 @@ const LoginPage = () => {
       // Error is handled by the login thunk's rejected case
     }
   };
+  const handleOnEnter=(event)=>
+  {
+    if(event.key=='Enter')
+    {
+      handleSubmit(event);
+    }
+  };
+
 
   const handleSignUpClick = () => {
     navigate('/signup'); // Navigate to the sign-up page
@@ -32,7 +40,7 @@ const LoginPage = () => {
       <Typography variant="h5" color="#EBD3F8" gutterBottom>
         Sign In
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onKeyDown={handleOnEnter}>
         <TextField
           variant="outlined"
           margin="normal"
