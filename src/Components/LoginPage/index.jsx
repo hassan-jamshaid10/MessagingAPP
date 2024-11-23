@@ -10,17 +10,15 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const error = useSelector((state) => state.auth.error); // Get error from the store
+  const error = useSelector((state) => state.auth.error);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     
     try {
-      await dispatch(login({ email, password })).unwrap(); // Call the login thunk
+      await dispatch(login({ email, password })).unwrap();
       navigate('/');
-    } catch (err) {
-      // Error is handled by the login thunk's rejected case
-    }
+    } catch (err) {}
   };
   const handleOnEnter=(event)=>
   {
