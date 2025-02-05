@@ -3,6 +3,9 @@
 ## Overview
 This project is a **Messaging App** built with **React.js**, **Vite**, **Material UI**, and **Tailwind CSS**. The application provides a comprehensive messaging platform featuring user authentication, real-time chat capabilities, and an AI assistant powered by Gemini. Users can engage in one-on-one chats, group conversations, and manage their contacts effectively.
 
+## Screenshots
+![CHAT LOGIN PAGE](./chat.png)
+
 ## Features
 - **User Authentication**: Login and signup functionality for secure access.
 - **Dashboard**: Displays online users and unread messages for quick access.
